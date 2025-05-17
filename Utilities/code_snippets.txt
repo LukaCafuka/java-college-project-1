@@ -1,0 +1,61 @@
+private void btnChoosePictureActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+	File file = FileUtils.uploadFile("Images", "jpg", "jpeg", "png");
+	if (file == null) {
+		return;
+	}
+	tfPicturePath.setText(file.getAbsolutePath());
+	setIcon(lbIcon, file);
+}       
+
+private void setIcon(JLabel label, File file) {
+	try {
+		label.setIcon(IconUtils.createIcon(file, label.getWidth(), label.getHeight()));
+	} catch (IOException ex) {
+		Logger.getLogger(EditArticlesPanel.class.getName()).log(Level.SEVERE, null, ex);
+		MessageUtils.showErrorMessage("Error", "Unable to set icon!");
+	}
+}
+
+private void init() {
+	try {
+		initValidation();
+		hideErrors();
+		initRepository();
+		initTable();
+	} catch (Exception ex) {
+		Logger.getLogger(EditArticlesPanel.class.getName()).log(Level.SEVERE, null, ex);
+		MessageUtils.showErrorMessage("Unrecoverable error", "Cannot initiate the form");
+		System.exit(1);
+	}
+}
+
+private void initValidation() {
+	validationFields = Arrays.asList();
+	errorLabels = Arrays.asList();
+}
+
+private void hideErrors() {
+	errorLabels.forEach(e -> e.setVisible(false));
+}
+
+
+
+private boolean formValid() {
+	hideErrors();
+	boolean ok = true;
+
+	for (int i = 0; i < validationFields.size(); i++) {
+		ok &= !validationFields.get(i).getText().trim().isEmpty();
+		errorLabels.get(i).setVisible(validationFields.get(i).getText().trim().isEmpty());
+
+	}
+	return ok;
+}
+
+
+private void clearForm() {
+	hideErrors();
+	validationFields.forEach(e -> e.setText(""));
+    lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/no_image.png"))); 
+	selectedArticle = null;
+}

@@ -1,0 +1,51 @@
+private static final String PATH = "/config/db.properties";
+
+private static final String SERVER_NAME = "SERVER_NAME";
+private static final String DATABASE_NAME = "DATABASE_NAME";
+private static final String USER = "USER"; 
+private static final String PASSWORD = "PASSWORD";
+
+
+
+private static final String ID_ARTICLE = "IDArticle";
+private static final String TITLE = "Title";
+private static final String LINK = "Link";
+private static final String DESCRIPTION = "Description";
+private static final String PICTURE_PATH = "PicturePath";
+private static final String PUBLISHED_DATE = "PublishedDate";
+
+private static final String CREATE_ARTICLE = "{ CALL createArticle (?,?,?,?,?,?) }";
+private static final String UPDATE_ARTICLE = "{ CALL updateArticle (?,?,?,?,?,?) }";
+private static final String DELETE_ARTICLE = "{ CALL deleteArticle (?) }";
+private static final String SELECT_ARTICLE = "{ CALL selectArticle (?) }";
+private static final String SELECT_ARTICLES = "{ CALL selectArticles }";
+
+
+
+private static final String PATH = "/config/repository.properties";
+private static final String CLASS_NAME = "CLASS_NAME";
+
+
+private static final String[] COLUMN_NAMES = {"Id", "Title", "Link", "Description", "Picture path", "Published date"};
+    
+
+private static final String UPLOAD_ARTICLES = "Upload articles";
+private static final String EDIT_ARTICLES = "Edit articles";
+	
+	
+
+private static final String DIR = "assets";
+
+
+
+private static final String RSS_URL = "https://slobodnadalmacija.hr/feed";
+private static final String ATTRIBUTE_URL = "url";
+private static final String EXT = ".jpg";
+private static final String DIR = "assets";
+
+
+
+private static final int TIMEOUT = 10000;
+private static final String REQUEST_METHOD = "GET";
+private static final String USER_AGENT = "User-Agent";
+private static final String MOZILLA = "Mozilla/5.0";
