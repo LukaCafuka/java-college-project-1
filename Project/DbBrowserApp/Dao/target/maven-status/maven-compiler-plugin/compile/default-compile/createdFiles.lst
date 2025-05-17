@@ -1,5 +1,5 @@
 hr\algebra\dal\sql\SqlRepository.class
+hr\algebra\model\Image.class
 hr\algebra\dal\Repository.class
 hr\algebra\dal\RepositoryFactory.class
 hr\algebra\dal\sql\DataSourceSingleton.class
-hr\algebra\model\Film.class
