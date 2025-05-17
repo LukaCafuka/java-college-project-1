@@ -142,6 +142,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
         tfPubDate.setName("DATE"); // NOI18N
 
         taDesc.setColumns(20);
+        taDesc.setLineWrap(true);
         taDesc.setRows(5);
         jScrollPane2.setViewportView(taDesc);
 
@@ -523,7 +524,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
     private void selectFilm() {
         int selectedRow = tbFilms.getSelectedRow();
         
-        int rowIndex = tbFilms.convertColumnIndexToModel(selectedRow);
+        int rowIndex = tbFilms.convertRowIndexToModel(selectedRow);
         int id = (int) model.getValueAt(rowIndex, 0);
         
         try {

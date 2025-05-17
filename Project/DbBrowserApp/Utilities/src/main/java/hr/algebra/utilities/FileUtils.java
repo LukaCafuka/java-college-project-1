@@ -5,8 +5,11 @@
  */
 package hr.algebra.utilities;
 
+import hr.algebra.factory.UrlConnectionFactory;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -30,6 +33,16 @@ public class FileUtils {
         if (!Files.exists(Paths.get(dir))) {
             Files.createDirectories(Paths.get(dir));
         }
+    }
+
+    public static void copyFromUrl(String pictureUrl, String destination) throws IOException {
+        createDirs(destination);
+        HttpURLConnection con = UrlConnectionFactory.getHttpUrlConnection(pictureUrl);
+        try (InputStream is = con.getInputStream()) {
+            Files.copy(
+                is,
+                Paths.get(destination));
+        } 
     }
 
 

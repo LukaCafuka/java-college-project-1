@@ -4,7 +4,13 @@
  */
 package hr.algebra.view;
 
+import hr.algebra.dal.Repository;
+import hr.algebra.dal.RepositoryFactory;
 import hr.algebra.model.Image;
+import hr.algebra.parsers.rss.ArticleParser;
+import hr.algebra.utilities.MessageUtils;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -17,6 +23,13 @@ public class UploadImagesPanel extends javax.swing.JPanel {
      */
     public UploadImagesPanel() {
         initComponents();
+        try {
+            init();
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageUtils.showErrorMessage("Unrecoverable", "Exiting");
+            System.exit(1);
+        }
     }
 
     /**
@@ -34,7 +47,12 @@ public class UploadImagesPanel extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(lsArticles);
 
-        btnUpload.setText("Upload articles");
+        btnUpload.setText("Upload NASA images");
+        btnUpload.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                btnUploadComponentShown(evt);
+            }
+        });
         btnUpload.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUploadActionPerformed(evt);
@@ -64,9 +82,28 @@ public class UploadImagesPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private Repository repository;
+    private DefaultListModel<Image> model;
+    
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
-        // TODO add your handling code here:
+        try {
+            List<Image> images = ArticleParser.parse();
+            repository.createImages(images);
+            loadModel();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnUploadActionPerformed
+
+    private void btnUploadComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_btnUploadComponentShown
+        try {
+            init();
+        } catch (Exception e) {
+            e.printStackTrace();
+            MessageUtils.showErrorMessage("Unrecoverable", "Exiting");
+            System.exit(1);
+        }
+    }//GEN-LAST:event_btnUploadComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -74,4 +111,16 @@ public class UploadImagesPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<hr.algebra.model.Image> lsArticles;
     // End of variables declaration//GEN-END:variables
+
+    private void init() throws Exception {
+        repository = RepositoryFactory.getRepository();
+        model = new DefaultListModel<>();
+        loadModel();
+    }
+
+    private void loadModel() throws Exception {
+        List<Image> images = repository.selectImages();
+        images.forEach(model::addElement);
+        lsArticles.setModel(model);
+    }
 }
