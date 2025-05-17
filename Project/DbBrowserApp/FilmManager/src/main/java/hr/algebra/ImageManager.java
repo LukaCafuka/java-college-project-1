@@ -4,19 +4,19 @@
  */
 package hr.algebra;
 
-import hr.algebra.view.EditFilmsPanel;
-import hr.algebra.view.UploadFilmsPanel;
+import hr.algebra.view.EditImagesPanel;
+import hr.algebra.view.UploadImagesPanel;
 
 /**
  *
  * @author daniel.bele
  */
-public class FilmManager extends javax.swing.JFrame {
+public class ImageManager extends javax.swing.JFrame {
 
     /**
      * Creates new form ArticleManager
      */
-    public FilmManager() {
+    public ImageManager() {
         initComponents();
         initPanels();
     }
@@ -67,21 +67,23 @@ public class FilmManager extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FilmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FilmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FilmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FilmManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ImageManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FilmManager().setVisible(true);
+                new ImageManager().setVisible(true);
             }
         });
     }
@@ -91,7 +93,7 @@ public class FilmManager extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initPanels() {
-        tpContent.add("Upload films", new UploadFilmsPanel());
-        tpContent.add("Edit films", new EditFilmsPanel());
+        tpContent.add("Upload images", new UploadImagesPanel());
+        tpContent.add("Edit images", new EditImagesPanel());
     }
 }

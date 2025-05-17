@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  *
  * @author bubif
  */
-public final class Film {
+public final class Image {
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     
     private int id;
@@ -21,7 +21,7 @@ public final class Film {
     private String picturePath;
     private LocalDateTime publishedDate;
 
-    public Film(int id, String title, String link, String description, String picturePath, LocalDateTime publishedDate) {
+    public Image(int id, String title, String link, String description, String picturePath, LocalDateTime publishedDate) {
         this.id = id;
         this.title = title;
         this.link = link;
@@ -30,7 +30,7 @@ public final class Film {
         this.publishedDate = publishedDate;
     }
 
-    public Film(String title, String link, String description, String picturePath, LocalDateTime publishedDate) {
+    public Image(String title, String link, String description, String picturePath, LocalDateTime publishedDate) {
         this.title = title;
         this.link = link;
         this.description = description;
@@ -45,7 +45,7 @@ public final class Film {
     
     
 
-    public Film() {
+    public Image() {
     }
     
 

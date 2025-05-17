@@ -4,7 +4,6 @@
  */
 package hr.algebra.dal;
 
-import hr.algebra.dal.sql.DataSourceSingleton;
 import hr.algebra.dal.sql.SqlRepository;
 import java.io.InputStream;
 import java.util.Properties;

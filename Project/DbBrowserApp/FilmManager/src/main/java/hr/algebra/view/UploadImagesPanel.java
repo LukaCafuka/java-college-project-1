@@ -4,18 +4,18 @@
  */
 package hr.algebra.view;
 
-import hr.algebra.model.Film;
+import hr.algebra.model.Image;
 
 /**
  *
  * @author bubif
  */
-public class UploadFilmsPanel extends javax.swing.JPanel {
+public class UploadImagesPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form UploadFilmsPanel
      */
-    public UploadFilmsPanel() {
+    public UploadImagesPanel() {
         initComponents();
     }
 
@@ -72,6 +72,6 @@ public class UploadFilmsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUpload;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Film> lsArticles;
+    private javax.swing.JList<hr.algebra.model.Image> lsArticles;
     // End of variables declaration//GEN-END:variables
 }

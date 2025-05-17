@@ -6,11 +6,11 @@ package hr.algebra.view;
 
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
-import hr.algebra.model.Film;
+import hr.algebra.model.Image;
 import hr.algebra.utilities.FileUtils;
 import hr.algebra.utilities.IconUtils;
 import hr.algebra.utilities.MessageUtils;
-import hr.algebra.view.model.FilmTableModel;
+import hr.algebra.view.model.ImageTableModel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,12 +30,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author bubif
  */
-public class EditFilmsPanel extends javax.swing.JPanel {
+public class EditImagesPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form EditFilmsPanel
      */
-    public EditFilmsPanel() {
+    public EditImagesPanel() {
         initComponents();
     }
 
@@ -291,19 +291,18 @@ public class EditFilmsPanel extends javax.swing.JPanel {
             
             String localPath = uploadPicture();
             
-            Film film = new Film(
+            Image image = new Image(
                     tfTitle.getText().trim(),
                     tfLink.getText().trim(),
                     taDesc.getText().trim(),
                     localPath,
-                    LocalDateTime.parse(
-                        tfPubDate.getText().trim(),
-                        Film.DATE_FORMATTER
+                    LocalDateTime.parse(tfPubDate.getText().trim(),
+                        Image.DATE_FORMATTER
                     )
             );
             
-            repository.createFilm(film);
-            model.setFilms(repository.selectFilms());
+            repository.createImage(image);
+            model.setFilms(repository.selectImages());
             
             clearForm();
         } catch (Exception e) {
@@ -331,17 +330,16 @@ public class EditFilmsPanel extends javax.swing.JPanel {
             } 
             currentSelectedFilm.setTitle(tfTitle.getText().trim());
             currentSelectedFilm.setLink(tfLink.getText().trim());
-            currentSelectedFilm.setPublishedDate(LocalDateTime.parse(
-                        tfPubDate.getText().trim(),
-                        Film.DATE_FORMATTER
+            currentSelectedFilm.setPublishedDate(LocalDateTime.parse(tfPubDate.getText().trim(),
+                        Image.DATE_FORMATTER
                     ));
             currentSelectedFilm.setDescription(taDesc.getText().trim());
 
             
-            repository.updateFilm(currentSelectedFilm.getId(), currentSelectedFilm);
+            repository.updateImage(currentSelectedFilm.getId(), currentSelectedFilm);
             
             
-            model.setFilms(repository.selectFilms());
+            model.setFilms(repository.selectImages());
             
             clearForm();
         } catch (Exception e) {
@@ -362,10 +360,10 @@ public class EditFilmsPanel extends javax.swing.JPanel {
 
 
             
-            repository.deleteFilm(currentSelectedFilm.getId());
+            repository.deleteImage(currentSelectedFilm.getId());
             
             
-            model.setFilms(repository.selectFilms());
+            model.setFilms(repository.selectImages());
             
             clearForm();
         } catch (Exception e) {
@@ -387,7 +385,7 @@ public class EditFilmsPanel extends javax.swing.JPanel {
 		initRepository();
 		initTable();
 	} catch (Exception ex) {
-		Logger.getLogger(EditFilmsPanel.class.getName()).log(Level.SEVERE, null, ex);
+		Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
 		MessageUtils.showErrorMessage("Unrecoverable error", "Cannot initiate the form");
 		System.exit(1);
 	}
@@ -398,9 +396,9 @@ public class EditFilmsPanel extends javax.swing.JPanel {
     private List<JLabel> errorLabels;
     
     private Repository repository;
-    private FilmTableModel model;
+    private ImageTableModel model;
     
-    private Film currentSelectedFilm;
+    private Image currentSelectedFilm;
     
     
     private void initValidation() {
@@ -429,7 +427,7 @@ public class EditFilmsPanel extends javax.swing.JPanel {
         try {
             label.setIcon(IconUtils.createIcon(file, label.getWidth(), label.getHeight()));
         } catch (IOException ex) {
-            Logger.getLogger(EditFilmsPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
             MessageUtils.showErrorMessage("Error", "Unable to set icon!");
         }
     }
@@ -445,9 +443,8 @@ public class EditFilmsPanel extends javax.swing.JPanel {
                
                     if ("DATE".equals(validationFields.get(i).getName())) {
                         try {
-                        LocalDateTime.parse(
-                                validationFields.get(i).getText().trim(),
-                                Film.DATE_FORMATTER
+                        LocalDateTime.parse(validationFields.get(i).getText().trim(),
+                                Image.DATE_FORMATTER
                         );
                          }
                         catch (Exception e) {
@@ -505,7 +502,7 @@ public class EditFilmsPanel extends javax.swing.JPanel {
         tbFilms.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbFilms.setAutoCreateRowSorter(true);
         tbFilms.setRowHeight(25);
-        model = new FilmTableModel(repository.selectFilms());
+        model = new ImageTableModel(repository.selectImages());
         tbFilms.setModel(model);
     }
 
@@ -530,7 +527,7 @@ public class EditFilmsPanel extends javax.swing.JPanel {
         int id = (int) model.getValueAt(rowIndex, 0);
         
         try {
-            Optional<Film> opt = repository.selectFilm(id);
+            Optional<Image> opt = repository.selectImage(id);
             
             if (opt.isPresent()) {
                 currentSelectedFilm = opt.get();
@@ -542,12 +539,12 @@ public class EditFilmsPanel extends javax.swing.JPanel {
         }
     }
 
-    private void fillForm(Film film) {
+    private void fillForm(Image film) {
         tfTitle.setText(film.getTitle());
         tfLink.setText(film.getLink());
         tfPicturePath.setText(film.getPicturePath());
         taDesc.setText(film.getDescription());
-        tfPubDate.setText(film.getPublishedDate().format(Film.DATE_FORMATTER));
+        tfPubDate.setText(film.getPublishedDate().format(Image.DATE_FORMATTER));
         
         setIcon(lbIcon, new File (
                 film.getPicturePath()

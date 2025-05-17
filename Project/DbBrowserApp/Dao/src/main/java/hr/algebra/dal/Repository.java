@@ -3,16 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package hr.algebra.dal;
-import hr.algebra.model.Film;
+import hr.algebra.model.Image;
 import java.util.List;
 import java.util.Optional;
 
 public interface Repository {
     
-    int createFilm(Film film) throws Exception;
-    void createFilms(List<Film> films) throws Exception;
-    void updateFilm(int id, Film data) throws Exception;
-    void deleteFilm(int id) throws Exception;
-    Optional<Film> selectFilm(int id) throws Exception;
-    List<Film> selectFilms() throws Exception;
+    int createImage(Image film) throws Exception;
+    void createImages(List<Image> films) throws Exception;
+    void updateImage(int id, Image data) throws Exception;
+    void deleteImage(int id) throws Exception;
+    Optional<Image> selectImage(int id) throws Exception;
+    List<Image> selectImages() throws Exception;
 }

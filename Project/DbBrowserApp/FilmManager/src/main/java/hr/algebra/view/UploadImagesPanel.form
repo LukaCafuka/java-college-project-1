@@ -54,7 +54,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Film&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;hr.algebra.model.Image&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>

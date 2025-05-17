@@ -5,7 +5,7 @@
  */
 package hr.algebra.view.model;
 
-import hr.algebra.model.Film;
+import hr.algebra.model.Image;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author dnlbe
  */
-public class FilmTableModel extends AbstractTableModel{
+public class ImageTableModel extends AbstractTableModel{
     
     private static final String[] COLUMN_NAMES = {"Id",
         "Title",
@@ -23,20 +23,20 @@ public class FilmTableModel extends AbstractTableModel{
         "Published date"
     };
     
-    private List<Film> films;
+    private List<Image> images;
 
-    public FilmTableModel(List<Film> films) {
-        this.films = films;
+    public ImageTableModel(List<Image> images) {
+        this.images = images;
     }
 
-    public void setFilms(List<Film> films) {
-        this.films = films;
+    public void setFilms(List<Image> images) {
+        this.images = images;
         fireTableDataChanged();
     }
     
     @Override
     public int getRowCount() {
-        return films.size();
+        return images.size();
     }
 
     @Override
@@ -48,17 +48,17 @@ public class FilmTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return films.get(rowIndex).getId();
+                return images.get(rowIndex).getId();
             case 1:
-                return films.get(rowIndex).getTitle();
+                return images.get(rowIndex).getTitle();
             case 2:
-                return films.get(rowIndex).getLink();
+                return images.get(rowIndex).getLink();
             case 3:
-                return films.get(rowIndex).getDescription();
+                return images.get(rowIndex).getDescription();
             case 4:
-                return films.get(rowIndex).getPicturePath();
+                return images.get(rowIndex).getPicturePath();
             case 5:
-                return films.get(rowIndex).getPublishedDate().format(Film.DATE_FORMATTER);
+                return images.get(rowIndex).getPublishedDate().format(Image.DATE_FORMATTER);
             default:
                 throw new RuntimeException("No such column");
         }

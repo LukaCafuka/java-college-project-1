@@ -8,7 +8,7 @@
     <modules>
         <module>Utilities</module>
         <module>Dao</module>
-        <module>FilmManager</module>
+        <module>ImageManager</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
