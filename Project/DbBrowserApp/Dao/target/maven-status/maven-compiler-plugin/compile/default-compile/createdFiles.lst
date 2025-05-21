@@ -1,5 +1,10 @@
+hr\algebra\model\Category.class
+hr\algebra\model\Writer.class
 hr\algebra\dal\sql\SqlRepository.class
 hr\algebra\model\Image.class
+hr\algebra\model\Person.class
+hr\algebra\model\User.class
 hr\algebra\dal\Repository.class
+hr\algebra\model\Photographer.class
 hr\algebra\dal\RepositoryFactory.class
 hr\algebra\dal\sql\DataSourceSingleton.class

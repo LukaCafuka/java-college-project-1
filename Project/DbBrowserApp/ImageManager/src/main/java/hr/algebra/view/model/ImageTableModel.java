@@ -29,7 +29,7 @@ public class ImageTableModel extends AbstractTableModel{
         this.images = images;
     }
 
-    public void setFilms(List<Image> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
         fireTableDataChanged();
     }

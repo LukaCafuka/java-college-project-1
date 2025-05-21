@@ -368,6 +368,19 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE selectUser
+	@IDUser INT
+AS 
+BEGIN 
+	SELECT 
+		* 
+	FROM 
+		[User]
+	WHERE 
+		IDUser = @IDUser
+END
+GO
+
 /*DELETE ALL DATA*/
 CREATE PROCEDURE DeleteAllData
 AS

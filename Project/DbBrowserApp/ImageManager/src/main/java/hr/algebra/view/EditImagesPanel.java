@@ -49,7 +49,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbFilms = new javax.swing.JTable();
+        tbImages = new javax.swing.JTable();
         lbIcon = new javax.swing.JLabel();
         btnChoose = new javax.swing.JButton();
         tfPicturePath = new javax.swing.JTextField();
@@ -77,7 +77,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
             }
         });
 
-        tbFilms.setModel(new javax.swing.table.DefaultTableModel(
+        tbImages.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,17 +88,17 @@ public class EditImagesPanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tbFilms.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbImages.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbFilmsMouseClicked(evt);
+                tbImagesMouseClicked(evt);
             }
         });
-        tbFilms.addKeyListener(new java.awt.event.KeyAdapter() {
+        tbImages.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tbFilmsKeyReleased(evt);
+                tbImagesKeyReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tbFilms);
+        jScrollPane1.setViewportView(tbImages);
 
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/no_image.png"))); // NOI18N
 
@@ -293,17 +293,17 @@ public class EditImagesPanel extends javax.swing.JPanel {
             String localPath = uploadPicture();
             
             Image image = new Image(
-                    tfTitle.getText().trim(),
-                    tfLink.getText().trim(),
-                    taDesc.getText().trim(),
-                    localPath,
-                    LocalDateTime.parse(tfPubDate.getText().trim(),
-                        Image.DATE_FORMATTER
-                    )
+                tfTitle.getText().trim(),
+                tfLink.getText().trim(),
+                taDesc.getText().trim(),
+                localPath,
+                LocalDateTime.parse(tfPubDate.getText().trim(),
+                    Image.DATE_FORMATTER
+                )
             );
             
             repository.createImage(image);
-            model.setFilms(repository.selectImages());
+            model.setImages(repository.selectImages());
             
             clearForm();
         } catch (Exception e) {
@@ -312,7 +312,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        if (currentSelectedFilm == null) {
+        if (currentSelectedImage == null) {
             MessageUtils.showInformationMessage("INFO", "Please select");
         }
         if (!formValid()) {
@@ -321,26 +321,26 @@ public class EditImagesPanel extends javax.swing.JPanel {
         
         try {
             
-            if (!tfPicturePath.getText().equals(currentSelectedFilm.getPicturePath())) {
-                if (Files.exists(Paths.get(currentSelectedFilm.getPicturePath()))) {
-                    Files.deleteIfExists(Paths.get(currentSelectedFilm.getPicturePath()));
+            if (!tfPicturePath.getText().equals(currentSelectedImage.getPicturePath())) {
+                if (Files.exists(Paths.get(currentSelectedImage.getPicturePath()))) {
+                    Files.deleteIfExists(Paths.get(currentSelectedImage.getPicturePath()));
                 }
                 
                 String localPath = uploadPicture();
-                currentSelectedFilm.setPicturePath(localPath);
+                currentSelectedImage.setPicturePath(localPath);
             } 
-            currentSelectedFilm.setTitle(tfTitle.getText().trim());
-            currentSelectedFilm.setLink(tfLink.getText().trim());
-            currentSelectedFilm.setPublishedDate(LocalDateTime.parse(tfPubDate.getText().trim(),
+            currentSelectedImage.setTitle(tfTitle.getText().trim());
+            currentSelectedImage.setLink(tfLink.getText().trim());
+            currentSelectedImage.setPublishedDate(LocalDateTime.parse(tfPubDate.getText().trim(),
                         Image.DATE_FORMATTER
                     ));
-            currentSelectedFilm.setDescription(taDesc.getText().trim());
+            currentSelectedImage.setDescription(taDesc.getText().trim());
 
             
-            repository.updateImage(currentSelectedFilm.getId(), currentSelectedFilm);
+            repository.updateImage(currentSelectedImage.getId(), currentSelectedImage);
             
             
-            model.setFilms(repository.selectImages());
+            model.setImages(repository.selectImages());
             
             clearForm();
         } catch (Exception e) {
@@ -348,47 +348,47 @@ public class EditImagesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        if (currentSelectedFilm == null) {
+        if (currentSelectedImage == null) {
             MessageUtils.showInformationMessage("INFO", "Please select");
         }
         
         try {
             
 
-            if (Files.exists(Paths.get(currentSelectedFilm.getPicturePath()))) {
-                Files.deleteIfExists(Paths.get(currentSelectedFilm.getPicturePath()));
+            if (Files.exists(Paths.get(currentSelectedImage.getPicturePath()))) {
+                Files.deleteIfExists(Paths.get(currentSelectedImage.getPicturePath()));
             }
 
 
             
-            repository.deleteImage(currentSelectedFilm.getId());
+            repository.deleteImage(currentSelectedImage.getId());
             
             
-            model.setFilms(repository.selectImages());
+            model.setImages(repository.selectImages());
             
             clearForm();
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void tbFilmsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbFilmsKeyReleased
-        selectFilm();
-    }//GEN-LAST:event_tbFilmsKeyReleased
+    private void tbImagesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbImagesKeyReleased
+        selectImage();
+    }//GEN-LAST:event_tbImagesKeyReleased
 
-    private void tbFilmsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbFilmsMouseClicked
-        selectFilm();
-    }//GEN-LAST:event_tbFilmsMouseClicked
+    private void tbImagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbImagesMouseClicked
+        selectImage();
+    }//GEN-LAST:event_tbImagesMouseClicked
 
     private void init() {
 	try {
-		initValidation();
-		hideErrors();
-		initRepository();
-		initTable();
+            initValidation();
+            hideErrors();
+            initRepository();
+            initTable();
 	} catch (Exception ex) {
-		Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
-		MessageUtils.showErrorMessage("Unrecoverable error", "Cannot initiate the form");
-		System.exit(1);
+            Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
+            MessageUtils.showErrorMessage("Unrecoverable error", "Cannot initiate the form");
+            System.exit(1);
 	}
     }
     
@@ -399,29 +399,29 @@ public class EditImagesPanel extends javax.swing.JPanel {
     private Repository repository;
     private ImageTableModel model;
     
-    private Image currentSelectedFilm;
+    private Image currentSelectedImage;
     
     
     private void initValidation() {
-            validationFields = Arrays.asList(
-                    tfLink,
-                    tfPicturePath,
-                    tfPubDate,
-                    tfTitle,
-                    taDesc
-                    
-            );
-            errorLabels = Arrays.asList(
-                    lbLinkError,
-                    lbPathError,
-                    lbDateError,
-                    lbTitleError,
-                    lbDescError
-            );
+        validationFields = Arrays.asList(
+            tfLink,
+            tfPicturePath,
+            tfPubDate,
+            tfTitle,
+            taDesc
+
+        );
+        errorLabels = Arrays.asList(
+            lbLinkError,
+            lbPathError,
+            lbDateError,
+            lbTitleError,
+            lbDescError
+        );
     }
 
     private void hideErrors() {
-            errorLabels.forEach(e -> e.setVisible(false));
+        errorLabels.forEach(e -> e.setVisible(false));
     }
 
     private void setIcon(JLabel label, File file) {
@@ -465,7 +465,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
             hideErrors();
             validationFields.forEach(e -> e.setText(""));
         lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/no_image.png"))); 
-            currentSelectedFilm = null;
+            currentSelectedImage = null;
     }
 
     
@@ -488,7 +488,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lbPathError;
     private javax.swing.JLabel lbTitleError;
     private javax.swing.JTextArea taDesc;
-    private javax.swing.JTable tbFilms;
+    private javax.swing.JTable tbImages;
     private javax.swing.JTextField tfLink;
     private javax.swing.JTextField tfPicturePath;
     private javax.swing.JTextField tfPubDate;
@@ -500,11 +500,11 @@ public class EditImagesPanel extends javax.swing.JPanel {
     }
 
     private void initTable() throws Exception {
-        tbFilms.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tbFilms.setAutoCreateRowSorter(true);
-        tbFilms.setRowHeight(25);
+        tbImages.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tbImages.setAutoCreateRowSorter(true);
+        tbImages.setRowHeight(25);
         model = new ImageTableModel(repository.selectImages());
-        tbFilms.setModel(model);
+        tbImages.setModel(model);
     }
 
     private String uploadPicture() throws IOException {
@@ -521,34 +521,34 @@ public class EditImagesPanel extends javax.swing.JPanel {
         return destination;
     }
 
-    private void selectFilm() {
-        int selectedRow = tbFilms.getSelectedRow();
+    private void selectImage() {
+        int selectedRow = tbImages.getSelectedRow();
         
-        int rowIndex = tbFilms.convertRowIndexToModel(selectedRow);
+        int rowIndex = tbImages.convertRowIndexToModel(selectedRow);
         int id = (int) model.getValueAt(rowIndex, 0);
         
         try {
             Optional<Image> opt = repository.selectImage(id);
             
             if (opt.isPresent()) {
-                currentSelectedFilm = opt.get();
+                currentSelectedImage = opt.get();
                 
-                fillForm(currentSelectedFilm);
+                fillForm(currentSelectedImage);
             }
             
         } catch (Exception e) {
         }
     }
 
-    private void fillForm(Image film) {
-        tfTitle.setText(film.getTitle());
-        tfLink.setText(film.getLink());
-        tfPicturePath.setText(film.getPicturePath());
-        taDesc.setText(film.getDescription());
-        tfPubDate.setText(film.getPublishedDate().format(Image.DATE_FORMATTER));
+    private void fillForm(Image image) {
+        tfTitle.setText(image.getTitle());
+        tfLink.setText(image.getLink());
+        tfPicturePath.setText(image.getPicturePath());
+        taDesc.setText(image.getDescription());
+        tfPubDate.setText(image.getPublishedDate().format(Image.DATE_FORMATTER));
         
         setIcon(lbIcon, new File (
-                film.getPicturePath()
+                image.getPicturePath()
         ));
     }
 }

@@ -2,4 +2,9 @@ C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\al
 C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\dal\RepositoryFactory.java
 C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\dal\sql\DataSourceSingleton.java
 C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\dal\sql\SqlRepository.java
+C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\model\Category.java
 C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\model\Image.java
+C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\model\Person.java
+C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\model\Photographer.java
+C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\model\User.java
+C:\Users\bubif\Desktop\java-projekt\Project\DbBrowserApp\Dao\src\main\java\hr\algebra\model\Writer.java
