@@ -5,6 +5,7 @@
 package hr.algebra.view;
 
 import hr.algebra.dal.Repository;
+import hr.algebra.dal.RepositoryFactory;
 import hr.algebra.model.User;
 import hr.algebra.utilities.MessageUtils;
 
@@ -19,6 +20,11 @@ public class LoginPanel extends javax.swing.JPanel {
      */
     public LoginPanel() {
         initComponents();
+        try {
+            initRepository();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -115,10 +121,12 @@ public class LoginPanel extends javax.swing.JPanel {
         
         try {
             User user = new User(tfUsername.getText(), pfPassword.getText());
+            int userId = repository.findUser(tfUsername.getText(), pfPassword.getText());
             
-            lblMessage.setText(user.getUserName() + user.getPassword());
+            lblMessage.setText(tfUsername.getText() + pfPassword.getText() + userId);
             
         } catch (Exception e) {
+            lblMessage.setText(e.toString());
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed
@@ -136,6 +144,10 @@ public class LoginPanel extends javax.swing.JPanel {
     
     private boolean userFormIsValid() {
         return !tfUsername.getText().trim().isEmpty() && !pfPassword.getText().trim().isEmpty();
+    }
+
+    private void initRepository() throws Exception {
+        repository = RepositoryFactory.getRepository();
     }
 
 }

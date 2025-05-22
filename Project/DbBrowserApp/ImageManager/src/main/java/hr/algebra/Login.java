@@ -4,6 +4,7 @@
  */
 package hr.algebra;
 
+import hr.algebra.view.CreateUserPanel;
 import hr.algebra.view.LoginPanel;
 import javax.swing.JFrame;
 
@@ -83,5 +84,6 @@ public class Login extends javax.swing.JFrame {
 
     private void initPanels() {
         tpContent.add("User login", new LoginPanel());
+        tpContent.add("Create user", new CreateUserPanel());
     }
 }

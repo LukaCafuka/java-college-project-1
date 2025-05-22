@@ -39,13 +39,13 @@ CREATE TABLE [Image]
 GO
 
 CREATE TABLE UserRole (
-	IDUserRole INT PRIMARY KEY IDENTITY,
+	IDUserRole INT PRIMARY KEY,
 	Name NVARCHAR(50),
 )
 
 CREATE TABLE [User] (
 	IDUser INT PRIMARY KEY IDENTITY,
-	UserName NVARCHAR(30),
+	UserName NVARCHAR(30) NOT NULL UNIQUE,
 	Password NVARCHAR(50),
 	UserRoleID INT NOT NULL FOREIGN KEY REFERENCES UserRole(IDUserRole)
 )
@@ -53,8 +53,10 @@ GO
 
 /*PREDEFINED ROLES*/
 
-INSERT INTO UserRole(Name) VALUES ('User')
-INSERT INTO UserRole(Name) VALUES ('Admin')
+INSERT INTO UserRole(IDUserRole, Name) VALUES (1, 'User')
+INSERT INTO UserRole(IDUserRole, Name) VALUES (2, 'Admin')
+
+INSERT INTO [User](UserName, Password, UserRoleID) VALUES ('admin', 'admin', 2)
 GO
 
 
@@ -378,6 +380,28 @@ BEGIN
 		[User]
 	WHERE 
 		IDUser = @IDUser
+END
+GO
+
+CREATE PROCEDURE selectUsers
+
+AS
+BEGIN
+	SELECT * FROM [User]
+
+END
+GO
+
+CREATE PROCEDURE findUser
+	@UserName NVARCHAR(30),
+	@Password NVARCHAR(50),
+	@IDUser INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SET @IDUser = NULL;
+	SELECT @IDUser = IDUser FROM [User] WHERE UserName = @UserName AND Password = @Password
 END
 GO
 

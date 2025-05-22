@@ -72,6 +72,7 @@ public class SqlRepository implements Repository {
     private static final String SELECT_CATEGORIES = "{ CALL selectCategories }";
     
     private static final String CREATE_USER = "{ CALL createUser (?,?,?) }";
+    private static final String FIND_USER = "{ CALL findUser (?,?,?) }";
     private static final String DELETE_USER = "{ CALL deleteUser (?) }";
     private static final String SELECT_USER = "{ CALL selectUser (?) }";
     private static final String SELECT_USERS = "{ CALL selectUsers }";
@@ -588,6 +589,21 @@ public class SqlRepository implements Repository {
         try (Connection con = dataSource.getConnection(); 
         CallableStatement stmt = con.prepareCall(DELETE_ALL_DATA)) {
             stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public int findUser(String username, String password) throws Exception {
+        DataSource dataSource = DataSourceSingleton.getInstance();
+        try (Connection con = dataSource.getConnection(); 
+        CallableStatement stmt = con.prepareCall(FIND_USER)) {
+            
+            stmt.setString(USER_NAME, username);
+            stmt.setString(PASSWORD, password);
+            
+            stmt.registerOutParameter(ID_USER, Types.INTEGER);
+            stmt.executeUpdate();
+            return stmt.getInt(ID_USER);
         }
     }
     

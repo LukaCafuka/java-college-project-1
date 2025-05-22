@@ -13,6 +13,21 @@ public class User {
     private String userName;
     private String password;
     private int userRoleId;
+    
+    private static User instance;
+    
+    public void setUserInstance(User user) {
+        if (instance == null) {
+            instance = new User(user.getId(), user.getUserName(), user.getPassword(), user.getUserRoleId());
+        }
+    }
+    
+    public User getUserInstance() {
+        if (instance != null) {
+            return instance;
+        }
+        return null;
+    }
 
     public User(int id, String userName, String password, int userRoleId) {
         this.id = id;
