@@ -4,10 +4,15 @@
  */
 package hr.algebra.view;
 
+import hr.algebra.ImageManager;
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
 import hr.algebra.model.User;
 import hr.algebra.utilities.MessageUtils;
+import java.util.Optional;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -114,16 +119,36 @@ public class LoginPanel extends javax.swing.JPanel {
 
     private Repository repository;
     
+
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         if (!userFormIsValid()) {
             MessageUtils.showErrorMessage("Invalid", "Form is empty");
+            return;
         }
         
         try {
-            User user = new User(tfUsername.getText(), pfPassword.getText());
             int userId = repository.findUser(tfUsername.getText(), pfPassword.getText());
             
-            lblMessage.setText(tfUsername.getText() + pfPassword.getText() + userId);
+            if (userId == 0) {
+                MessageUtils.showErrorMessage("Invalid", "User does not exist");
+                return;
+            }
+            else {
+                Optional<User> optionalUser = repository.selectUser(userId);
+                
+                User user = optionalUser.orElseThrow();
+                
+                if (Optional.of(user).isPresent()) {
+                    User.setUserInstance(user);
+                    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                    new ImageManager().setVisible(true);
+                    parentFrame.dispose();
+                }
+                            
+                lblMessage.setText(user.getUserName()+ user.getPassword()+ userId);
+            }
+
             
         } catch (Exception e) {
             lblMessage.setText(e.toString());
@@ -144,6 +169,10 @@ public class LoginPanel extends javax.swing.JPanel {
     
     private boolean userFormIsValid() {
         return !tfUsername.getText().trim().isEmpty() && !pfPassword.getText().trim().isEmpty();
+    }
+    
+    public JButton getSubmitButton() {
+        return btnLogin;
     }
 
     private void initRepository() throws Exception {

@@ -4,6 +4,8 @@
  */
 package hr.algebra.model;
 
+import java.util.Optional;
+
 /**
  *
  * @author bubif
@@ -16,17 +18,17 @@ public class User {
     
     private static User instance;
     
-    public void setUserInstance(User user) {
+    public static void setUserInstance(User user) {
         if (instance == null) {
             instance = new User(user.getId(), user.getUserName(), user.getPassword(), user.getUserRoleId());
         }
     }
     
-    public User getUserInstance() {
+    public static Optional<User> getUserInstance() {
         if (instance != null) {
-            return instance;
+            return Optional.of(instance);
         }
-        return null;
+        return Optional.empty();
     }
 
     public User(int id, String userName, String password, int userRoleId) {

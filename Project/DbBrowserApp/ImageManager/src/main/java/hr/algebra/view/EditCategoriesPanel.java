@@ -31,12 +31,12 @@ import javax.swing.text.JTextComponent;
  *
  * @author bubif
  */
-public class EditImagesPanel extends javax.swing.JPanel {
+public class EditCategoriesPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form EditFilmsPanel
      */
-    public EditImagesPanel() {
+    public EditCategoriesPanel() {
         initComponents();
     }
 
@@ -56,7 +56,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
         tfPicturePath = new javax.swing.JTextField();
         lbTitleError = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        tfTitle = new javax.swing.JTextField();
+        tfName = new javax.swing.JTextField();
         lbPathError = new javax.swing.JLabel();
         tfLink = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -116,7 +116,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
         lbTitleError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitleError.setText("X");
 
-        jLabel3.setText("Title");
+        jLabel3.setText("Category name");
 
         lbPathError.setForeground(new java.awt.Color(255, 0, 0));
         lbPathError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -184,7 +184,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(lbTitleError, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
@@ -241,7 +241,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbTitleError, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -284,7 +284,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
         try {
             init();
         } catch (Exception ex) {
-            Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditCategoriesPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -298,7 +298,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
             String localPath = uploadPicture();
             
             Image image = new Image(
-                tfTitle.getText().trim(),
+                tfName.getText().trim(),
                 tfLink.getText().trim(),
                 taDesc.getText().trim(),
                 localPath,
@@ -334,7 +334,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
                 String localPath = uploadPicture();
                 currentSelectedImage.setPicturePath(localPath);
             } 
-            currentSelectedImage.setTitle(tfTitle.getText().trim());
+            currentSelectedImage.setTitle(tfName.getText().trim());
             currentSelectedImage.setLink(tfLink.getText().trim());
             currentSelectedImage.setPublishedDate(LocalDateTime.parse(tfPubDate.getText().trim(),
                         Image.DATE_FORMATTER
@@ -408,7 +408,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
                         tbImages.revalidate();
                     });
                 } catch (Exception ex) {
-                    Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(EditCategoriesPanel.class.getName()).log(Level.SEVERE, null, ex);
                     MessageUtils.showErrorMessage("Error", "Failed to load data");
                 }
             }
@@ -426,11 +426,10 @@ public class EditImagesPanel extends javax.swing.JPanel {
     
     
     private void initValidation() {
-        validationFields = Arrays.asList(
-            tfLink,
+        validationFields = Arrays.asList(tfLink,
             tfPicturePath,
             tfPubDate,
-            tfTitle,
+            tfName,
             taDesc
 
         );
@@ -451,7 +450,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
         try {
             label.setIcon(IconUtils.createIcon(file, label.getWidth(), label.getHeight()));
         } catch (IOException ex) {
-            Logger.getLogger(EditImagesPanel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditCategoriesPanel.class.getName()).log(Level.SEVERE, null, ex);
             MessageUtils.showErrorMessage("Error", "Unable to set icon!");
         }
     }
@@ -515,9 +514,9 @@ public class EditImagesPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea taDesc;
     private javax.swing.JTable tbImages;
     private javax.swing.JTextField tfLink;
+    private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfPicturePath;
     private javax.swing.JTextField tfPubDate;
-    private javax.swing.JTextField tfTitle;
     // End of variables declaration//GEN-END:variables
 
     private void initRepository() throws Exception {
@@ -584,7 +583,7 @@ public class EditImagesPanel extends javax.swing.JPanel {
     }
 
     private void fillForm(Image image) {
-        tfTitle.setText(image.getTitle());
+        tfName.setText(image.getTitle());
         tfLink.setText(image.getLink());
         tfPicturePath.setText(image.getPicturePath());
         taDesc.setText(image.getDescription());

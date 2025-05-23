@@ -83,7 +83,9 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initPanels() {
-        tpContent.add("User login", new LoginPanel());
+        LoginPanel loginPanel = new LoginPanel();
+        tpContent.add("User login", loginPanel);
         tpContent.add("Create user", new CreateUserPanel());
+        getRootPane().setDefaultButton(loginPanel.getSubmitButton());
     }
 }

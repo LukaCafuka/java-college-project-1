@@ -5,8 +5,11 @@
 package hr.algebra;
 
 import hr.algebra.Login;
+import hr.algebra.model.User;
+import hr.algebra.view.EditCategoriesPanel;
 import hr.algebra.view.EditImagesPanel;
 import hr.algebra.view.UploadImagesPanel;
+import java.util.Optional;
 
 /**
  *
@@ -20,6 +23,7 @@ public class ImageManager extends javax.swing.JFrame {
     public ImageManager() {
         initComponents();
         initPanels();
+        initUser();
     }
 
     /**
@@ -32,19 +36,30 @@ public class ImageManager extends javax.swing.JFrame {
     private void initComponents() {
 
         tpContent = new javax.swing.JTabbedPane();
+        lblUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DbBrowser");
+
+        lblUser.setText("Hello");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tpContent, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUser)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tpContent, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(tpContent, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUser)
+                .addContainerGap())
         );
 
         pack();
@@ -85,17 +100,30 @@ public class ImageManager extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
-                new ImageManager().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblUser;
     private javax.swing.JTabbedPane tpContent;
     // End of variables declaration//GEN-END:variables
 
     private void initPanels() {
+        Optional<User> currentUser = User.getUserInstance();
+        
         tpContent.add("Upload images", new UploadImagesPanel());
         tpContent.add("Edit images", new EditImagesPanel());
+        if(currentUser.isPresent() &&  currentUser.get().getUserRoleId() == 2) {
+            tpContent.add("Edit categories", new EditCategoriesPanel());
+        }
+        
+    }
+
+    private void initUser() {
+        Optional<User> currentUser = User.getUserInstance();
+        if (currentUser.isPresent()) {
+            lblUser.setText("Hello, " + currentUser.get().getUserName());
+        }
     }
 }
