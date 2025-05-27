@@ -6,7 +6,8 @@ package hr.algebra;
 
 import hr.algebra.Login;
 import hr.algebra.model.User;
-import hr.algebra.view.EditCategoriesPanel;
+import hr.algebra.view.DeleteDataPanel;
+import hr.algebra.view.EditOtherEntitiesPanel;
 import hr.algebra.view.EditImagesPanel;
 import hr.algebra.view.UploadImagesPanel;
 import java.util.Optional;
@@ -115,7 +116,8 @@ public class ImageManager extends javax.swing.JFrame {
         tpContent.add("Upload images", new UploadImagesPanel());
         tpContent.add("Edit images", new EditImagesPanel());
         if(currentUser.isPresent() &&  currentUser.get().getUserRoleId() == 2) {
-            tpContent.add("Edit categories", new EditCategoriesPanel());
+            tpContent.add("Edit other DB entities", new EditOtherEntitiesPanel());
+            tpContent.add("Delete all data", new DeleteDataPanel());
         }
         
     }

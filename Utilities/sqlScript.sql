@@ -188,7 +188,7 @@ AS
 BEGIN 
 	UPDATE Photographer SET 
 		FirstName = @FirstName,
-		LastName = @FirstName
+		LastName = @LastName
 	WHERE 
 		IDPhotographer = @IDPhotographer
 END
@@ -249,7 +249,7 @@ AS
 BEGIN 
 	UPDATE Writer SET 
 		FirstName = @FirstName,
-		LastName = @FirstName
+		LastName = @LastName
 	WHERE 
 		IDWriter = @IDWriter
 END

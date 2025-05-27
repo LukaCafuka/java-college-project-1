@@ -7,6 +7,7 @@ package hr.algebra.dal.sql;
 import hr.algebra.dal.Repository;
 import hr.algebra.model.Category;
 import hr.algebra.model.Image;
+import hr.algebra.model.Person;
 import hr.algebra.model.Photographer;
 import hr.algebra.model.User;
 import hr.algebra.model.Writer;
