@@ -607,5 +607,44 @@ public class SqlRepository implements Repository {
             return stmt.getInt(ID_USER);
         }
     }
+
+    @Override
+    public void setImagePhotographer(int id, Image image) throws Exception {
+        DataSource dataSource = DataSourceSingleton.getInstance();
+        try (Connection con = dataSource.getConnection(); 
+        CallableStatement stmt = con.prepareCall(SET_IMAGE_PHOTOGRAPGER)) {
+            
+            stmt.setInt(ID_PHOTOGRAPHER, id);
+            
+            stmt.setInt(ID_IMAGE, image.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public void setImageWriter(int id, Image image) throws Exception {
+        DataSource dataSource = DataSourceSingleton.getInstance();
+        try (Connection con = dataSource.getConnection(); 
+        CallableStatement stmt = con.prepareCall(SET_IMAGE_WRITER)) {
+            
+            stmt.setInt(ID_WRITER, id);
+            
+            stmt.setInt(ID_IMAGE, image.getId());
+            stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public void setImageCategory(int id, Image image) throws Exception {
+        DataSource dataSource = DataSourceSingleton.getInstance();
+        try (Connection con = dataSource.getConnection(); 
+        CallableStatement stmt = con.prepareCall(SET_IMAGE_CATEGORY)) {
+            
+            stmt.setInt(ID_CATEGORY, id);
+            
+            stmt.setInt(ID_IMAGE, image.getId());
+            stmt.executeUpdate();
+        }
+    }
     
 }

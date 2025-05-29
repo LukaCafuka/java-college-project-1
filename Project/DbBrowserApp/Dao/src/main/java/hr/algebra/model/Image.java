@@ -6,12 +6,17 @@ package hr.algebra.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
  * @author bubif
  */
-public final class Image {
+
+@XmlType(propOrder = { "id", "title", "link", "description", "picturePath", "publishedDate" })
+public final class Image implements Comparable<Image> {
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     
     private int id;
@@ -41,6 +46,28 @@ public final class Image {
     @Override
     public String toString() {
         return id + " - " + title;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.id;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Image other = (Image) obj;
+        return this.id == other.id;
     }
     
     
@@ -89,12 +116,19 @@ public final class Image {
         this.picturePath = picturePath;
     }
 
+    @XmlElement(name = "publishedDate")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public LocalDateTime getPublishedDate() {
         return publishedDate;
     }
 
     public void setPublishedDate(LocalDateTime publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    @Override
+    public int compareTo(Image other) {
+        return Integer.compare(this.id, other.id);
     }
     
     

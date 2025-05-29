@@ -86,12 +86,14 @@ public class UploadImagesPanel extends javax.swing.JPanel {
     private DefaultListModel<Image> model;
     
     private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
-        try {
-            List<Image> images = ArticleParser.parse();
-            repository.createImages(images);
-            loadModel();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (MessageUtils.showConfirmDialog("Are you sure?", "Any existing data will be kept alongside the new imported data.")) {
+            try {
+                List<Image> images = ArticleParser.parse();
+                repository.createImages(images);
+                loadModel();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }//GEN-LAST:event_btnUploadActionPerformed
 

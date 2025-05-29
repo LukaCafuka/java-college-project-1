@@ -58,8 +58,6 @@ public class CreateUserPanel extends javax.swing.JPanel {
             }
         });
 
-        pfPassword.setText("jPasswordField1");
-
         lblMessage.setText("Message");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

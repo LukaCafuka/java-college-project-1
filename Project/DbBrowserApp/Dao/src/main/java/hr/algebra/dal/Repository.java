@@ -22,6 +22,12 @@ public interface Repository {
     Optional<Image> selectImage(int id) throws Exception;
     List<Image> selectImages() throws Exception;
     
+    /* IMAGE RELATION SETTERS */
+    
+    void setImagePhotographer(int id, Image image) throws Exception;
+    void setImageWriter(int id, Image image) throws Exception;
+    void setImageCategory(int id, Image image) throws Exception;
+    
     /* PHOTOGRAPHER CRUD */
     int createPhotographer(Photographer photographer) throws Exception;
     void createPhotographers(List<Photographer> photographers) throws Exception;
