@@ -49,6 +49,9 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         pnlCategory = new javax.swing.JPanel();
         tfCategoryName = new javax.swing.JTextField();
         lbCategoryNameError = new javax.swing.JLabel();
@@ -85,6 +88,45 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
         tfWriterLastName = new javax.swing.JTextField();
         lbWriterLastNameError = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+
+        jMenu1.setText("Create");
+
+        javax.swing.JMenuItem createCategoryMenuItem = new javax.swing.JMenuItem("Category");
+        createCategoryMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        createCategoryMenuItem.addActionListener(evt -> showCreateCategoryDialog());
+        jMenu1.add(createCategoryMenuItem);
+        
+        javax.swing.JMenuItem createPhotographerMenuItem = new javax.swing.JMenuItem("Photographer");
+        createPhotographerMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        createPhotographerMenuItem.addActionListener(evt -> showCreatePhotographerDialog());
+        jMenu1.add(createPhotographerMenuItem);
+        
+        javax.swing.JMenuItem createWriterMenuItem = new javax.swing.JMenuItem("Writer");
+        createWriterMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_W, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        createWriterMenuItem.addActionListener(evt -> showCreateWriterDialog());
+        jMenu1.add(createWriterMenuItem);
+        
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Actions");
+
+        javax.swing.JMenuItem clearMenuItem = new javax.swing.JMenuItem("Clear All Forms");
+        clearMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        clearMenuItem.addActionListener(evt -> clearForm());
+        jMenu2.add(clearMenuItem);
+        
+        javax.swing.JMenuItem refreshMenuItem = new javax.swing.JMenuItem("Refresh Data");
+        refreshMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        refreshMenuItem.addActionListener(evt -> {
+            try {
+                init();
+            } catch (Exception ex) {
+                MessageUtils.showErrorMessage("Error", "Failed to refresh data");
+            }
+        });
+        jMenu2.add(refreshMenuItem);
+        
+        jMenuBar1.add(jMenu2);
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -182,7 +224,7 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
             .addGroup(pnlCategoryLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -294,7 +336,7 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
             .addGroup(pnlPhotographerLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlPhotographerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfPhotographerFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,6 +482,7 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jMenuBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -451,12 +494,14 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlPhotographer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlPhotographer1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jMenuBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlPhotographer1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnlPhotographer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(pnlCategory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -697,8 +742,7 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
             @Override
             protected void done() {
                 try {
-                    get(); // Check for exceptions
-                    // Update UI after loading
+                    get(); 
                     SwingUtilities.invokeLater(() -> {
                         tbCategories.setModel(categoryModel);
                         tbCategories.revalidate();
@@ -838,6 +882,10 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
             btnDeletePhotographer.setEnabled(false);
             btnUpdateWriter.setEnabled(false);
             btnDeleteWriter.setEnabled(false);
+
+            tbCategories.clearSelection();
+            tbPhotographers.clearSelection();
+            tbWriters.clearSelection();
     }
 
     
@@ -860,6 +908,9 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1062,5 +1113,256 @@ public class EditOtherEntitiesPanel extends javax.swing.JPanel {
 
         }
         return ok;        
+    }
+
+    private void showCreateCategoryDialog() {
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this), "Create Category", true);
+        dialog.setSize(400, 200);
+        dialog.setLocationRelativeTo(this);
+
+        javax.swing.JTextField tfName = new javax.swing.JTextField(20);
+        javax.swing.JLabel lbNameError = new javax.swing.JLabel("X");
+        lbNameError.setForeground(java.awt.Color.RED);
+        lbNameError.setVisible(false);
+        
+        javax.swing.JButton btnCreate = new javax.swing.JButton("Create");
+        javax.swing.JButton btnCancel = new javax.swing.JButton("Cancel");
+
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new javax.swing.JLabel("Category Name:"), gbc);
+        
+        gbc.gridx = 1;
+        panel.add(tfName, gbc);
+        
+        gbc.gridx = 2;
+        panel.add(lbNameError, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 3;
+        javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
+        buttonPanel.add(btnCreate);
+        buttonPanel.add(btnCancel);
+        panel.add(buttonPanel, gbc);
+        
+        // Action listeners
+        btnCreate.addActionListener(e -> {
+            if (tfName.getText().trim().isEmpty()) {
+                lbNameError.setVisible(true);
+                return;
+            }
+            
+            try {
+                Category category = new Category(tfName.getText().trim());
+                repository.createCategory(category);
+                categoryModel.setCategories(repository.selectCategories());
+                MessageUtils.showInformationMessage("Success", "Category created successfully!");
+                dialog.dispose();
+            } catch (Exception ex) {
+                MessageUtils.showErrorMessage("Error", "Failed to create category: " + ex.getMessage());
+            }
+        });
+        
+        btnCancel.addActionListener(e -> dialog.dispose());
+        
+        tfName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lbNameError.setVisible(false);
+            }
+        });
+        
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+    
+    private void showCreatePhotographerDialog() {
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this), "Create Photographer", true);
+        dialog.setSize(400, 250);
+        dialog.setLocationRelativeTo(this);
+
+        javax.swing.JTextField tfFirstName = new javax.swing.JTextField(20);
+        javax.swing.JTextField tfLastName = new javax.swing.JTextField(20);
+        javax.swing.JLabel lbFirstNameError = new javax.swing.JLabel("X");
+        javax.swing.JLabel lbLastNameError = new javax.swing.JLabel("X");
+        lbFirstNameError.setForeground(java.awt.Color.RED);
+        lbLastNameError.setForeground(java.awt.Color.RED);
+        lbFirstNameError.setVisible(false);
+        lbLastNameError.setVisible(false);
+        
+        javax.swing.JButton btnCreate = new javax.swing.JButton("Create");
+        javax.swing.JButton btnCancel = new javax.swing.JButton("Cancel");
+        
+        // Layout
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new javax.swing.JLabel("First Name:"), gbc);
+        
+        gbc.gridx = 1;
+        panel.add(tfFirstName, gbc);
+        
+        gbc.gridx = 2;
+        panel.add(lbFirstNameError, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new javax.swing.JLabel("Last Name:"), gbc);
+        
+        gbc.gridx = 1;
+        panel.add(tfLastName, gbc);
+        
+        gbc.gridx = 2;
+        panel.add(lbLastNameError, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 3;
+        javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
+        buttonPanel.add(btnCreate);
+        buttonPanel.add(btnCancel);
+        panel.add(buttonPanel, gbc);
+        
+        // Action listeners
+        btnCreate.addActionListener(e -> {
+            boolean valid = true;
+            if (tfFirstName.getText().trim().isEmpty()) {
+                lbFirstNameError.setVisible(true);
+                valid = false;
+            }
+            if (tfLastName.getText().trim().isEmpty()) {
+                lbLastNameError.setVisible(true);
+                valid = false;
+            }
+            
+            if (!valid) return;
+            
+            try {
+                Photographer photographer = new Photographer(
+                    tfFirstName.getText().trim(),
+                    tfLastName.getText().trim()
+                );
+                repository.createPhotographer(photographer);
+                photographerModel.setPhotographers(repository.selectPhotographers());
+                MessageUtils.showInformationMessage("Success", "Photographer created successfully!");
+                dialog.dispose();
+            } catch (Exception ex) {
+                MessageUtils.showErrorMessage("Error", "Failed to create photographer: " + ex.getMessage());
+            }
+        });
+        
+        btnCancel.addActionListener(e -> dialog.dispose());
+        
+        tfFirstName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lbFirstNameError.setVisible(false);
+            }
+        });
+        
+        tfLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lbLastNameError.setVisible(false);
+            }
+        });
+        
+        dialog.add(panel);
+        dialog.setVisible(true);
+    }
+    
+    private void showCreateWriterDialog() {
+        javax.swing.JDialog dialog = new javax.swing.JDialog((java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(this), "Create Writer", true);
+        dialog.setSize(400, 250);
+        dialog.setLocationRelativeTo(this);
+
+        javax.swing.JTextField tfFirstName = new javax.swing.JTextField(20);
+        javax.swing.JTextField tfLastName = new javax.swing.JTextField(20);
+        javax.swing.JLabel lbFirstNameError = new javax.swing.JLabel("X");
+        javax.swing.JLabel lbLastNameError = new javax.swing.JLabel("X");
+        lbFirstNameError.setForeground(java.awt.Color.RED);
+        lbLastNameError.setForeground(java.awt.Color.RED);
+        lbFirstNameError.setVisible(false);
+        lbLastNameError.setVisible(false);
+        
+        javax.swing.JButton btnCreate = new javax.swing.JButton("Create");
+        javax.swing.JButton btnCancel = new javax.swing.JButton("Cancel");
+        
+        // Layout
+        javax.swing.JPanel panel = new javax.swing.JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        
+        gbc.insets = new java.awt.Insets(5, 5, 5, 5);
+        gbc.gridx = 0; gbc.gridy = 0;
+        panel.add(new javax.swing.JLabel("First Name:"), gbc);
+        
+        gbc.gridx = 1;
+        panel.add(tfFirstName, gbc);
+        
+        gbc.gridx = 2;
+        panel.add(lbFirstNameError, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 1;
+        panel.add(new javax.swing.JLabel("Last Name:"), gbc);
+        
+        gbc.gridx = 1;
+        panel.add(tfLastName, gbc);
+        
+        gbc.gridx = 2;
+        panel.add(lbLastNameError, gbc);
+        
+        gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 3;
+        javax.swing.JPanel buttonPanel = new javax.swing.JPanel();
+        buttonPanel.add(btnCreate);
+        buttonPanel.add(btnCancel);
+        panel.add(buttonPanel, gbc);
+        
+        // Action listeners
+        btnCreate.addActionListener(e -> {
+            boolean valid = true;
+            if (tfFirstName.getText().trim().isEmpty()) {
+                lbFirstNameError.setVisible(true);
+                valid = false;
+            }
+            if (tfLastName.getText().trim().isEmpty()) {
+                lbLastNameError.setVisible(true);
+                valid = false;
+            }
+            
+            if (!valid) return;
+            
+            try {
+                Writer writer = new Writer(
+                    tfFirstName.getText().trim(),
+                    tfLastName.getText().trim()
+                );
+                repository.createWriter(writer);
+                writerModel.setWriters(repository.selectWriters());
+                MessageUtils.showInformationMessage("Success", "Writer created successfully!");
+                dialog.dispose();
+            } catch (Exception ex) {
+                MessageUtils.showErrorMessage("Error", "Failed to create writer: " + ex.getMessage());
+            }
+        });
+        
+        btnCancel.addActionListener(e -> dialog.dispose());
+        
+        tfFirstName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lbFirstNameError.setVisible(false);
+            }
+        });
+        
+        tfLastName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lbLastNameError.setVisible(false);
+            }
+        });
+        
+        dialog.add(panel);
+        dialog.setVisible(true);
     }
 }
